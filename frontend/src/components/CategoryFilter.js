@@ -1,25 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 function CategoryFilter({ selectedCategory, setSelectedCategory }) {
-  const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    fetch('/api/posts/categories')
-      .then(res => res.json())
-      .then(data => setCategories(data))
-      .catch(err => console.error('Error loading categories', err));
-  }, []);
+  const categories = ['All', 'Tech', 'Life', 'News', 'Education']; // Add or update as needed
 
   return (
     <select
       value={selectedCategory}
-      onChange={e => setSelectedCategory(e.target.value)}
-      style={{ marginBottom: '10px', padding: '8px', width: '100%' }}
+      onChange={e => setSelectedCategory(e.target.value === 'All' ? '' : e.target.value)}
+      style={{ marginBottom: '10px', width: '100%', padding: '8px' }}
     >
-      <option value="">All Categories</option>
-      {categories.map(cat => (
-        <option key={cat} value={cat}>
-          {cat}
+      {categories.map(category => (
+        <option key={category} value={category}>
+          {category}
         </option>
       ))}
     </select>

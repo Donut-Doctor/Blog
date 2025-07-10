@@ -11,30 +11,20 @@ function Header() {
   };
 
   return (
-    <div style={{
-      background: '#333',
-      padding: '10px 20px',
-      color: '#fff',
-      marginBottom: '20px',
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center'
-    }}>
+    <div className="navbar">
       <div>
-        <Link to="/" style={{ color: '#fff', textDecoration: 'none', marginRight: '15px' }}>Home</Link>
-        {token && (
-          <Link to="/create" style={{ color: '#fff', textDecoration: 'none', marginRight: '15px' }}>Create Post</Link>
-        )}
+        <Link to="/">Home</Link>
+        {token && <Link to="/create">Create</Link>}
+        {token && <Link to="/dashboard">Dashboard</Link>}
+        {token && <Link to="/profile">Profile</Link>}
       </div>
       <div>
         {token ? (
-          <button onClick={handleLogout} style={{ background: 'red', color: 'white', border: 'none', padding: '6px 10px', cursor: 'pointer' }}>
-            Logout
-          </button>
+          <button onClick={handleLogout}>Logout</button>
         ) : (
           <>
-            <Link to="/login" style={{ color: '#fff', textDecoration: 'none', marginRight: '10px' }}>Login</Link>
-            <Link to="/register" style={{ color: '#fff', textDecoration: 'none' }}>Register</Link>
+            <Link to="/login">Login</Link>
+            <Link to="/register">Register</Link>
           </>
         )}
       </div>

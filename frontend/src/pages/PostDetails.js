@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function PostDetails() {
   const { id } = useParams();
   const [post, setPost] = useState(null);
+  const navigate = useNavigate();
+
+  const userId = localStorage.getItem('userId');
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -18,6 +22,18 @@ function PostDetails() {
     fetchPost();
   }, [id]);
 
+  const handleDelete = async () => {
+    if (!token) return;
+    try {
+      await axios.delete(`/api/posts/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      navigate('/');
+    } catch (err) {
+      alert('Failed to delete post');
+    }
+  };
+
   if (!post) return <p>Loading...</p>;
 
   return (
@@ -27,6 +43,23 @@ function PostDetails() {
       <p><b>Author:</b> {post.author?.username || 'Unknown'}</p>
       <hr />
       <p>{post.content}</p>
+
+      {post.author?._id === userId && (
+        <div style={{ marginTop: '20px' }}>
+          <button
+            onClick={() => navigate(`/edit/${post._id}`)}
+            style={{ marginRight: '10px' }}
+          >
+            Edit
+          </button>
+          <button
+            onClick={handleDelete}
+            style={{ background: 'red', color: 'white' }}
+          >
+            Delete
+          </button>
+        </div>
+      )}
     </div>
   );
 }

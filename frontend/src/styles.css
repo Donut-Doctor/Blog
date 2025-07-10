@@ -1,80 +1,82 @@
-/* Global Reset */
-* {
+body {
+  font-family: 'Segoe UI', sans-serif;
   margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  background-color: #f4f6f8;
 }
 
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f5f7fa;
-  color: #333;
-  line-height: 1.6;
+.container {
+  max-width: 800px;
+  margin: auto;
   padding: 20px;
 }
 
-/* Container */
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  background-color: #ffffff;
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Buttons */
-button {
-  background-color: #0077cc;
-  color: #fff;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-button:hover {
-  background-color: #005fa3;
-}
-
-/* Inputs */
 input, textarea, select {
   width: 100%;
   padding: 10px;
-  margin-top: 8px;
   margin-bottom: 15px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 6px;
+  font-size: 16px;
+}
+/* Button styles */
+button {
+  padding: 10px 18px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-/* Links */
+button:hover {
+  background-color: #0056b3;
+  transform: scale(1.03);
+}
+
+/* Link styles in nav */
 a {
-  color: #0077cc;
   text-decoration: none;
+  color: #fff;
+  margin-right: 15px;
+  font-weight: 500;
+  transition: color 0.3s ease;
 }
 
 a:hover {
-  text-decoration: underline;
+  color: #00c0ff;
 }
 
-/* Header */
-header {
-  background-color: #333;
-  padding: 15px 20px;
-  color: white;
+/* Optional: Make nav buttons stand out more */
+.navbar a {
+  padding: 6px 10px;
+  border-radius: 4px;
+}
+
+.navbar a:hover {
+  background-color: #1abc9c;
+  color: #fff;
+}
+
+h2 {
+  color: #333;
+}
+
+.post-card {
+  border: 1px solid #ddd;
+  background: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.navbar {
+  background: #2c3e50;
+  padding: 15px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
-}
-
-header a {
   color: white;
-  margin-right: 15px;
-  text-decoration: none;
-}
-
-header a:hover {
-  text-decoration: underline;
 }
