@@ -14,7 +14,9 @@ function PostCard({ post }) {
       <p>{post.content.slice(0, 100)}...</p>
       <p><b>Category:</b> {post.category}</p>
       <p><b>Author:</b> {post.author?.username || 'Unknown'}</p>
-      <Link to={`/post/${post._id}`}>Read More</Link>
+      <Link to={`/post/${post._id}`} style={{ color: 'blue', textDecoration: 'underline' }}>
+        Read More
+      </Link>
     </div>
   );
 }

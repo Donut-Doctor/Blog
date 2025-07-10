@@ -1,71 +1,32 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { useParams, useNavigate, Link } from 'react-router-dom';
 
 function PostDetails() {
   const { id } = useParams();
-  const navigate = useNavigate();
   const [post, setPost] = useState(null);
-  const [error, setError] = useState('');
-  const [userId, setUserId] = useState('');
 
   useEffect(() => {
-    // Fetch post
-    axios.get(`http://localhost:3008/api/posts/${id}`)
-      .then(res => setPost(res.data))
-      .catch(() => setError('Failed to load post'));
-
-    // Decode token to get current user ID (simple way)
-    const token = localStorage.getItem('token');
-    if (token) {
+    const fetchPost = async () => {
       try {
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        setUserId(payload.userId);
-      } catch {
-        setUserId('');
+        const res = await axios.get(`/api/posts/${id}`);
+        setPost(res.data);
+      } catch (err) {
+        console.error('Error fetching post:', err);
       }
-    }
+    };
+    fetchPost();
   }, [id]);
 
-  const handleDelete = async () => {
-    const token = localStorage.getItem('token');
-    if (!token) return;
-
-    try {
-      await axios.delete(`http://localhost:3008/api/posts/${id}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      navigate('/');
-    } catch {
-      setError('Failed to delete');
-    }
-  };
-
-  if (!post) return <p>Loading post...</p>;
-  if (error) return <p style={{ color: 'red' }}>{error}</p>;
+  if (!post) return <p>Loading...</p>;
 
   return (
-    <div style={{ maxWidth: '700px', margin: 'auto', padding: '20px' }}>
-      <h2 style={{ marginBottom: '10px' }}>{post.title}</h2>
-      <p><strong>Category:</strong> {post.category}</p>
-      <p style={{ marginTop: '20px' }}>{post.content}</p>
-      <p style={{ marginTop: '20px' }}><strong>Author:</strong> {post.author?.username || 'Unknown'}</p>
-
-      {post.author?._id === userId && (
-        <div style={{ marginTop: '20px' }}>
-          <Link to={`/edit/${id}`}>
-            <button style={{ padding: '8px 12px', background: '#007bff', color: '#fff', border: 'none', marginRight: '10px' }}>
-              Edit
-            </button>
-          </Link>
-          <button
-            onClick={handleDelete}
-            style={{ padding: '8px 12px', background: 'red', color: '#fff', border: 'none' }}
-          >
-            Delete
-          </button>
-        </div>
-      )}
+    <div style={{ padding: '20px', background: '#fff', borderRadius: '8px' }}>
+      <h2>{post.title}</h2>
+      <p><b>Category:</b> {post.category}</p>
+      <p><b>Author:</b> {post.author?.username || 'Unknown'}</p>
+      <hr />
+      <p>{post.content}</p>
     </div>
   );
 }

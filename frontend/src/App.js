@@ -9,6 +9,7 @@ import SearchBar from './components/SearchBar';
 import CreatePost from './components/CreatePost';
 import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
+import PostDetails from './pages/PostDetails';
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -50,6 +51,7 @@ function App() {
           <Route path="/create" element={<CreatePost />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/posts/:id" element={<PostDetails />} />
         </Routes>
       </div>
     </>
