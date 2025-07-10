@@ -1,4 +1,16 @@
 const express = require('express');
+const Post = require('../models/Post');
+
+// GET all unique categories
+router.get('/categories', async (req, res) => {
+  try {
+    const categories = await Post.distinct('category');
+    res.json(categories);
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to fetch categories' });
+  }
+});
+
 const {
   createPost,
   getAllPosts,

@@ -10,11 +10,16 @@ import CreatePost from './components/CreatePost';
 import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
 import PostDetails from './pages/PostDetails';
+import EditPost from './pages/EditPost';
+import CategoryFilter from './components/CategoryFilter';
+
 
 function App() {
   const [posts, setPosts] = useState([]);
   const [search, setSearch] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
 
+  
   const fetchPosts = async () => {
     try {
       const res = await axios.get('/api/posts');
@@ -52,6 +57,9 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/posts/:id" element={<PostDetails />} />
+          <Route path="/edit/:id" element={<EditPost />} />
+        
+        
         </Routes>
       </div>
     </>

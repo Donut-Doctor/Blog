@@ -1,79 +1,63 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
 
 function EditPost() {
-  const [post, setPost] = useState({ title: '', content: '', category: '' });
-  const [error, setError] = useState('');
   const { id } = useParams();
   const navigate = useNavigate();
+  const [post, setPost] = useState({ title: '', content: '', category: '' });
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    axios.get(`http://localhost:3008/api/posts/${id}`)
-      .then(res => setPost(res.data))
-      .catch(() => setError('Failed to load post'));
+    const fetchPost = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const res = await axios.get(`/api/posts/${id}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setPost(res.data);
+      } catch (err) {
+        setError('Failed to load post');
+      }
+    };
+    fetchPost();
   }, [id]);
 
   const handleUpdate = async () => {
-    const token = localStorage.getItem('token');
-    if (!token) return setError('Unauthorized');
-
     try {
-      await axios.put(`http://localhost:3008/api/posts/${id}`, post, {
+      const token = localStorage.getItem('token');
+      await axios.put(`/api/posts/${id}`, post, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      navigate(`/post/${id}`);
+      navigate('/');
     } catch (err) {
-      setError('Update failed');
+      setError('Failed to update post');
     }
   };
 
   return (
-    <div style={{ maxWidth: '600px', margin: 'auto' }}>
+    <div>
       <h2>Edit Post</h2>
-
       {error && <p style={{ color: 'red' }}>{error}</p>}
-
       <input
         type="text"
+        placeholder="Title"
         value={post.title}
         onChange={e => setPost({ ...post, title: e.target.value })}
-        placeholder="Title"
-        style={{ width: '100%', padding: '8px', marginBottom: '10px' }}
       /><br />
-
       <textarea
         rows="5"
+        placeholder="Content"
         value={post.content}
         onChange={e => setPost({ ...post, content: e.target.value })}
-        placeholder="Content"
-        style={{ width: '100%', padding: '8px', marginBottom: '10px' }}
       /><br />
-
-      <select
+      <input
+        type="text"
+        placeholder="Category"
         value={post.category}
         onChange={e => setPost({ ...post, category: e.target.value })}
-        style={{ width: '100%', padding: '8px', marginBottom: '10px' }}
-      >
-        <option value="">Select Category</option>
-        <option value="Tech">Tech</option>
-        <option value="Lifestyle">Lifestyle</option>
-        <option value="News">News</option>
-        <option value="Other">Other</option>
-      </select><br />
-
-      <button
-        onClick={handleUpdate}
-        style={{
-          backgroundColor: '#28a745',
-          color: '#fff',
-          padding: '10px 15px',
-          border: 'none',
-          cursor: 'pointer'
-        }}
-      >
-        Update Post
-      </button>
+      /><br />
+      <button onClick={handleUpdate}>Update Post</button>
     </div>
   );
 }
