@@ -1,27 +1,29 @@
 import React from "react";
-import { NavLink, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 
 function Navbar() {
   const token = localStorage.getItem("token");
 
   return (
-    <nav>
-      <h1 className="logo">
-        <Link to="/">VAGABOND’S DIARY</Link>
-      </h1>
-      <div className="nav-links">
-        <NavLink to="/" end>Home</NavLink>
-        {!token && <NavLink to="/login">Login</NavLink>}
-        {!token && <NavLink to="/signup">Sign Up</NavLink>}
-        {token && <NavLink to="/create">Create</NavLink>}
-        {token && (
+    <nav className="navbar">
+      <div className="navbar-brand">
+        <Link to="/">Vagabond's Diary</Link>
+      </div>
+      <div className="navbar-links">
+        <Link to="/">Home</Link>
+        {token && <Link to="/create">Create Blog</Link>}
+        {!token ? (
+          <>
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Signup</Link>
+          </>
+        ) : (
           <button
             onClick={() => {
               localStorage.removeItem("token");
               window.location.href = "/";
             }}
-            className="logout-btn"
           >
             Logout
           </button>

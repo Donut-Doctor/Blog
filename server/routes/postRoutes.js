@@ -1,34 +1,22 @@
 const express = require("express");
 const router = express.Router();
-const protect = require("../middleware/authMiddleware");
 const upload = require("../middleware/upload");
-const {
-  createPost,
-  getAllPosts,
-  getPostById,
-  updatePost,
-  deletePost,
-  getPostsByCategory,
-  searchPosts,
-} = require("../controllers/postController");
+const auth = require("../middleware/auth");
+const Post = require("../models/Post");
 
-
-router.get("/", getAllPosts);
-router.get("/:id", getPostById);
-router.get("/category/:name", getPostsByCategory);
-router.get("/search", searchPosts);
-
-
-router.post("/", protect, upload.single("image"), createPost);
-router.put("/:id", protect, upload.single("image"), updatePost);
-router.delete("/:id", protect, deletePost);
-
-router.get('/category/:name', async (req, res) => {
+router.post("/", auth, upload.single("image"), async (req, res) => {
   try {
-    const posts = await Post.find({ category: req.params.name }).populate("author", "username");
-    res.json(posts);
+    const newPost = new Post({
+      title: req.body.title,
+      content: req.body.content,
+      category: req.body.category,
+      author: req.user.id,
+      image: req.file ? req.file.filename : null,
+    });
+    await newPost.save();
+    res.status(201).json(newPost);
   } catch (err) {
-    res.status(500).json({ message: "Error fetching posts by category" });
+    res.status(500).json({ error: "Failed to create post" });
   }
 });
 
