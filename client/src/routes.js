@@ -1,36 +1,28 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-
 import Home from "./pages/Home";
-import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 import CreatePost from "./pages/CreatePost";
 import EditPost from "./pages/EditPost";
 import PostDetail from "./pages/PostDetail";
 import CategoryPage from "./pages/CategoryPage";
-import SearchResults from "./pages/SearchResults";
 import LeftSidebarPage from "./pages/LeftSidebarPage";
 import RightSidebarPage from "./pages/RightSidebarPage";
 import NoSidebarPage from "./pages/NoSidebarPage";
-
-const LeftSidebar = () => <h2 style={{ padding: "2rem" }}>Left Sidebar Page</h2>;
-const RightSidebar = () => <h2 style={{ padding: "2rem" }}>Right Sidebar Page</h2>;
-const NoSidebar = () => <h2 style={{ padding: "2rem" }}>No Sidebar Page</h2>;
+import SearchResultsPage from "./pages/SearchResults";
 
 function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
       <Route path="/create" element={<CreatePost />} />
       <Route path="/edit/:id" element={<EditPost />} />
       <Route path="/post/:id" element={<PostDetail />} />
       <Route path="/category/:name" element={<CategoryPage />} />
-      <Route path="/search" element={<SearchResults />} />
-      <Route path="/left" element={<LeftSidebar />} />
-      <Route path="/right" element={<RightSidebar />} />
-      <Route path="/no-sidebar" element={<NoSidebar />} />
+      <Route path="/search" element={<SearchResultsPage />} />
       <Route path="/left" element={<LeftSidebarPage />} />
       <Route path="/right" element={<RightSidebarPage />} />
       <Route path="/no-sidebar" element={<NoSidebarPage />} />

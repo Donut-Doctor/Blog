@@ -1,29 +1,44 @@
 import React, { useEffect, useState } from "react";
-import axios from "../services/axios";
 import { useLocation } from "react-router-dom";
+import axios from "../services/axios";
 import PostCard from "../components/PostCard";
+import Loader from "../components/Loader";
+import "./SearchResultsPage.css";
 
-function SearchResults() {
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
+function SearchResultsPage() {
+  const query = useQuery().get("q");
   const [results, setResults] = useState([]);
-  const query = new URLSearchParams(useLocation().search).get("q");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (query) {
-      axios.get(`/posts/search?q=${query}`).then((res) => setResults(res.data));
+      axios.get(`/posts/search?q=${query}`).then((res) => {
+        setResults(res.data);
+        setLoading(false);
+      });
     }
   }, [query]);
 
   return (
-    <div className="container">
-      <h2>Search results for: "{query}"</h2>
-      <div className="grid">
-        {results.map((post) => (
-          <PostCard key={post._id} post={post} />
-        ))}
-        {results.length === 0 && <p>No posts found.</p>}
-      </div>
+    <div className="search-results container">
+      <h2>Search Results for: "{query}"</h2>
+      {loading ? (
+        <Loader />
+      ) : results.length > 0 ? (
+        <div className="results-grid">
+          {results.map((post) => (
+            <PostCard key={post._id} post={post} />
+          ))}
+        </div>
+      ) : (
+        <p>No posts found.</p>
+      )}
     </div>
   );
 }
 
-export default SearchResults;
+export default SearchResultsPage;

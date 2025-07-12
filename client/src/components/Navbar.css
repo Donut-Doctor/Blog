@@ -1,51 +1,50 @@
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #111;
-  color: white;
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   padding: 1rem 2rem;
-  flex-wrap: wrap;
-}
-
-.nav-left .logo {
-  font-size: 1.4rem;
-  font-weight: bold;
-  cursor: pointer;
-  letter-spacing: 1px;
-}
-
-.nav-center, .nav-right {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  justify-content: space-between;
   flex-wrap: wrap;
-  margin-top: 0.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-.nav-link {
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
+.navbar .logo a {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #222;
   text-decoration: none;
-  transition: background 0.3s;
 }
 
-.nav-link:hover,
-.nav-link.active {
-  background: #444;
+.nav-links {
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
 }
 
-.logout-btn {
-  background: transparent;
+.nav-links a {
+  color: #444;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #0077cc;
+  border-bottom: 2px solid #0077cc;
+}
+
+.nav-links button {
+  background-color: transparent;
   border: none;
-  color: white;
+  color: #e74c3c;
+  font-size: 1rem;
   cursor: pointer;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  transition: background 0.3s;
 }
 
-.logout-btn:hover {
-  background: #555;
+.nav-links button:hover {
+  color: #c0392b;
 }

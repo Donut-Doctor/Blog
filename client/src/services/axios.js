@@ -1,16 +1,8 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || "http://localhost:5000/api",
-});
-
-// Optional: add token automatically to requests
-instance.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    config.headers.Authorization = token;
-  }
-  return config;
+  baseURL: "http://localhost:5000/api", // Point to your backend API
+  withCredentials: true, // Only if using cookies
 });
 
 export default instance;

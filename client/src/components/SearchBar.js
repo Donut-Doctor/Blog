@@ -6,23 +6,33 @@ function SearchBar() {
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (query.trim() !== "") {
-      navigate(`/search?q=${query}`);
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && query.trim()) {
+      navigate(`/search?q=${query.trim()}`);
+      setQuery("");
+    }
+  };
+
+  const handleClick = () => {
+    if (query.trim()) {
+      navigate(`/search?q=${query.trim()}`);
+      setQuery("");
     }
   };
 
   return (
-    <form className="search-bar" onSubmit={handleSearch}>
+    <div className="search-bar">
       <input
         type="text"
-        placeholder="Search posts..."
         value={query}
+        placeholder="Search blog posts..."
         onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={handleKeyDown}
       />
-      <button type="submit">🔍</button>
-    </form>
+      <button onClick={handleClick}>
+        <i className="fas fa-search"></i>
+      </button>
+    </div>
   );
 }
 
