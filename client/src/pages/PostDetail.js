@@ -22,16 +22,28 @@ function PostDetail() {
     }
   };
 
+  const getCurrentUserId = () => {
+    const token = localStorage.getItem("token");
+    if (!token) return null;
+    try {
+      return JSON.parse(atob(token.split(".")[1])).id;
+    } catch {
+      return null;
+    }
+  };
+
   if (!post) return <p>Loading...</p>;
 
   return (
     <div className="post-detail container">
       <img src={`http://localhost:5000/uploads/${post.image}`} alt={post.title} />
       <h2>{post.title}</h2>
-      <p className="meta">By {post.author?.username} | {new Date(post.createdAt).toLocaleDateString()}</p>
+      <p className="meta">
+        By {post.author?.username} | {new Date(post.createdAt).toLocaleDateString()}
+      </p>
       <p className="content">{post.content}</p>
 
-      {post.author?._id === JSON.parse(atob(localStorage.getItem("token").split(".")[1])).id && (
+      {post.author?._id === getCurrentUserId() && (
         <div className="actions">
           <Link to={`/edit/${post._id}`}>Edit</Link>
           <button onClick={handleDelete}>Delete</button>
