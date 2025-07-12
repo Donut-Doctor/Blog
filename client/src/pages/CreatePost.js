@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import axios from "../services/axios";
 import { useNavigate } from "react-router-dom";
 import "./PostForm.css";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 function CreatePost() {
   const [form, setForm] = useState({ title: "", content: "", category: "", image: null });

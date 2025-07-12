@@ -4,6 +4,10 @@ const upload = require("../middleware/upload");
 const auth = require("../middleware/auth");
 const Post = require("../models/Post");
 
+
+router.post("/", auth, createPost);
+router.put("/:id", auth, updatePost);
+router.delete("/:id", auth, deletePost);
 router.post("/", auth, upload.single("image"), async (req, res) => {
   try {
     const newPost = new Post({
