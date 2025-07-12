@@ -9,6 +9,9 @@ import EditPost from "./pages/EditPost";
 import PostDetail from "./pages/PostDetail";
 import CategoryPage from "./pages/CategoryPage";
 import SearchResults from "./pages/SearchResults";
+import LeftSidebarPage from "./pages/LeftSidebarPage";
+import RightSidebarPage from "./pages/RightSidebarPage";
+import NoSidebarPage from "./pages/NoSidebarPage";
 
 const LeftSidebar = () => <h2 style={{ padding: "2rem" }}>Left Sidebar Page</h2>;
 const RightSidebar = () => <h2 style={{ padding: "2rem" }}>Right Sidebar Page</h2>;
@@ -28,6 +31,9 @@ function AppRoutes() {
       <Route path="/left" element={<LeftSidebar />} />
       <Route path="/right" element={<RightSidebar />} />
       <Route path="/no-sidebar" element={<NoSidebar />} />
+      <Route path="/left" element={<LeftSidebarPage />} />
+      <Route path="/right" element={<RightSidebarPage />} />
+      <Route path="/no-sidebar" element={<NoSidebarPage />} />
     </Routes>
   );
 }
