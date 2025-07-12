@@ -1,24 +1,36 @@
 import React, { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
 import axios from "../services/axios";
-import { useParams } from "react-router-dom";
-import PostCard from "../components/PostCard";
+import "./CategoryPage.css";
 
 function CategoryPage() {
   const { name } = useParams();
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    axios.get(`/posts/category/${name}`).then((res) => setPosts(res.data));
+    axios.get(`/posts/category/${name}`).then((res) => {
+      setPosts(res.data);
+    });
   }, [name]);
 
   return (
-    <div className="container">
-      <h2>Category: {name}</h2>
-      <div className="grid">
-        {posts.map((post) => (
-          <PostCard key={post._id} post={post} />
-        ))}
-        {posts.length === 0 && <p>No posts in this category.</p>}
+    <div className="category-page container">
+      <h2 className="category-heading">{name} Blogs</h2>
+      <div className="category-posts">
+        {posts.length === 0 ? (
+          <p>No blog posts found in this category yet.</p>
+        ) : (
+          posts.map((post) => (
+            <Link to={`/post/${post._id}`} className="category-post" key={post._id}>
+              <img src={`http://localhost:5000/uploads/${post.image}`} alt={post.title} />
+              <div className="category-post-info">
+                <h3>{post.title}</h3>
+                <p>{post.content.slice(0, 120)}...</p>
+                <span className="read-more">Read more →</span>
+              </div>
+            </Link>
+          ))
+        )}
       </div>
     </div>
   );

@@ -25,6 +25,7 @@ function AppRoutes() {
       <Route path="/search" element={<SearchResultsPage />} />
       <Route path="/left" element={<LeftSidebarPage />} />
       <Route path="/right" element={<RightSidebarPage />} />
+      
       <Route path="/no-sidebar" element={<NoSidebarPage />} />
     </Routes>
   );

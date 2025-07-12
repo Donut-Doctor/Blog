@@ -1,46 +1,43 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Categories.css";
-import natureImg from "../assets/images/category-nature.jpg";
-import travelImg from "../assets/images/category-travel.jpg";
-import urbanImg from "../assets/images/category-urban.jpg";
-import { useNavigate } from "react-router-dom";
-
-const categories = [
-  {
-    name: "Nature",
-    description: "Forests, mountains, oceans and all things wild.",
-    image: natureImg,
-  },
-  {
-    name: "Travel",
-    description: "Journey logs, wanderer tales, and nomad guides.",
-    image: travelImg,
-  },
-  {
-    name: "Urban",
-    description: "Cities, cultures, cafes and concrete jungles.",
-    image: urbanImg,
-  },
-];
+import nature from "../assets/images/nature.jpg";
+import travel from "../assets/images/travel.jpg";
+import urban from "../assets/images/urban.jpg";
 
 function Categories() {
-  const navigate = useNavigate();
-
-  const handleFilter = (category) => {
-    navigate(`/category/${category}`);
-  };
+  const categories = [
+    {
+      name: "Nature",
+      image: nature,
+      description: "Discover stories from forests, oceans, and the wild.",
+    },
+    {
+      name: "Travel",
+      image: travel,
+      description: "Explore journeys, hidden destinations, and experiences.",
+    },
+    {
+      name: "Urban",
+      image: urban,
+      description: "City life, architecture, and modern culture.",
+    },
+  ];
 
   return (
-    <div className="category-grid">
-      {categories.map((cat) => (
-        <div key={cat.name} className="category-card" onClick={() => handleFilter(cat.name)}>
-          <img src={cat.image} alt={cat.name} />
-          <div className="cat-info">
-            <h3>{cat.name}</h3>
-            <p>{cat.description}</p>
-          </div>
-        </div>
-      ))}
+    <div className="category-section">
+      <h2 className="category-title">Explore Categories</h2>
+      <div className="category-grid">
+        {categories.map((cat) => (
+          <Link to={`/category/${cat.name}`} className="category-card" key={cat.name}>
+            <img src={cat.image} alt={cat.name} className="category-img" />
+            <div className="category-info">
+              <h3>{cat.name}</h3>
+              <p>{cat.description}</p>
+            </div>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }

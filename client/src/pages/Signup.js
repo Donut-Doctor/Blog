@@ -4,32 +4,31 @@ import { useNavigate } from "react-router-dom";
 import "./Auth.css";
 
 function Signup() {
-  const [form, setForm] = useState({ username: "", email: "", password: "" });
+  const [formData, setFormData] = useState({ username: "", email: "", password: "" });
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSignup = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/auth/register", form);
-      localStorage.setItem("token", res.data.token);
-      navigate("/");
+      await axios.post("/auth/register", formData);
+      navigate("/login");
     } catch (err) {
-      setError(err.response?.data?.msg || "Signup failed");
+      setError(err.response?.data?.message || "Signup failed.");
     }
   };
 
   return (
     <div className="auth-container">
-      <h2>Create an Account</h2>
-      <form onSubmit={handleSignup}>
-        <input name="username" type="text" placeholder="Username" onChange={handleChange} required />
-        <input name="email" type="email" placeholder="Email" onChange={handleChange} required />
-        <input name="password" type="password" placeholder="Password" onChange={handleChange} required />
+      <h2>Create Account</h2>
+      <form onSubmit={handleSubmit}>
+        <input type="text" name="username" placeholder="Username" onChange={handleChange} required />
+        <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
+        <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
         <button type="submit">Sign Up</button>
         {error && <p className="error">{error}</p>}
       </form>

@@ -1,9 +1,18 @@
 .sidebar-layout {
   display: flex;
+  flex-direction: row;
+  align-items: flex-start;
   gap: 2rem;
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+  padding: 2rem;
+}
+
+.content-area {
+  flex: 3;
+}
+
+.sidebar-layout .sidebar {
+  flex: 1;
+  max-width: 300px;
 }
 
 .posts-column {

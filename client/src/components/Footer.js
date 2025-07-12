@@ -9,7 +9,6 @@ function Footer() {
           <h3>Vagabond's Diary</h3>
           <p>© {new Date().getFullYear()} All rights reserved.</p>
         </div>
-
         <div className="footer-section">
           <h4>Follow Us</h4>
           <div className="social-icons">

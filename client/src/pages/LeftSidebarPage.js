@@ -1,22 +1,26 @@
-import React from "react";
-import Hero from "../components/Hero";
-import Sidebar from "../components/Sidebar";
+import React, { useEffect, useState } from "react";
 import PostCard from "../components/PostCard";
-import "./SidebarPages.css";
+import Sidebar from "../components/Sidebar";
+import axios from "../services/axios";
+import "./SidebarLayout.css";
 
 function LeftSidebarPage() {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    axios.get("/posts").then((res) => setPosts(res.data));
+  }, []);
+
   return (
-    <>
-      <Hero />
-      <div className="sidebar-layout">
-        <Sidebar />
-        <div className="posts-column">
-          <h2>Posts with Left Sidebar</h2>
-          <PostCard sample />
-          <PostCard sample />
-        </div>
+    <div className="sidebar-layout">
+      <Sidebar />
+      <div className="content-area">
+        <h2>Latest Posts</h2>
+        {posts.map((post) => (
+          <PostCard key={post._id} post={post} />
+        ))}
       </div>
-    </>
+    </div>
   );
 }
 

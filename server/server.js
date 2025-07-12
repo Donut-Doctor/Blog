@@ -1,4 +1,5 @@
-// server/server.js
+require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
@@ -16,6 +17,7 @@ app.use("/uploads", express.static("uploads")); // for serving uploaded images
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
+require("dotenv").config();
 
 // MongoDB Connection
 mongoose
