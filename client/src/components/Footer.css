@@ -23,13 +23,13 @@
 }
 
 .footer-links a {
-  color: #94a3b8; /* muted soft blue-gray */
+  color: #94a3b8;
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;
 }
 
 .footer-links a:hover {
-  color: #f8fafc; /* soft white on hover */
+  color: #f8fafc;
   text-decoration: underline;
 }

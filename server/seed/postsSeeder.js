@@ -12,7 +12,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 async function seedPosts() {
   try {
-    const user = await User.findOne(); // Assuming at least 1 user exists
+    const user = await User.findOne();
     if (!user) return console.log("Please create a user first");
 
     const posts = [
